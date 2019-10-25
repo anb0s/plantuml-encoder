@@ -1,47 +1,37 @@
 /* global describe it */
 const chai = require('chai')
 const plantumlEncoder = require('../index')
-const browserEncoder = require('../dist/plantuml-encoder')
-const minifiedEncoder = require('../dist/plantuml-encoder.min')
-const browserDecoder = require('../dist/plantuml-decoder')
-const minifiedDecoder = require('../dist/plantuml-decoder.min')
 
 const expect = chai.expect
 
-const umlWithInclude = `!include ./conf.plantuml
+const umlWithInclude = `!include ../test/conf.plantuml
 
 Bob->Alice : hello`
 
-const umlWithoutInclude = `
+const umlWithoutInclude = `hide empty members
+skinparam backgroundColor white
+skinparam monochrome true
+skinparam shadowing false
+skinparam linetype polyline
+skinparam linetype ortho
+
 
 Bob->Alice : hello`
 
-const encoded = 'u-9ooa_IjNFCoKnELR1Io4ZDoSa70000'
+const encodedAfterInclusion = 'RScz3G8n30RGFbDu0HQWG08coOyvM-VaYvoSJjaUqLr1-VH42nFNFXTLhebzXB5hwz5ZfHJplZcELjumE9sYaozVqP35KPcc7zSP4WjERHjzeethc3QUgpDrsFhXty6d88JmGhezdgQPwKx2PlW2'
 
 describe('plantuml-encoder', function () {
   describe('#encode()', function () {
     it('node.js should include file and encode UTF-8', function () {
       const e = plantumlEncoder.encode(umlWithInclude)
-      expect(e).to.equal(encoded)
-    })
-    it('browser should include file and encode UTF-8', function () {
-      expect(browserEncoder.encode(umlWithInclude)).to.equal(plantumlEncoder.encode(umlWithInclude))
-    })
-    it('browser (minified) should include file and encode UTF-8', function () {
-      expect(minifiedEncoder.encode(umlWithInclude)).to.equal(plantumlEncoder.encode(umlWithInclude))
+      expect(e).to.equal(encodedAfterInclusion)
     })
   })
 
   describe('#decode()', function () {
     it('node.js should decode UTF-8', function () {
-      const decoded = plantumlEncoder.decode(encoded)
+      const decoded = plantumlEncoder.decode(encodedAfterInclusion)
       expect(decoded).to.equal(umlWithoutInclude)
-    })
-    it('browser should decode UTF-8', function () {
-      expect(browserDecoder.decode(encoded)).to.equal(plantumlEncoder.decode(encoded))
-    })
-    it('browser (minified) should decode UTF-8', function () {
-      expect(minifiedDecoder.decode(encoded)).to.equal(plantumlEncoder.decode(encoded))
     })
   })
 })
