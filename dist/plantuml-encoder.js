@@ -73,7 +73,6 @@ module.exports = function (data) {
 
 var deflate = require('./deflate')
 var encode64 = require('./encode64')
-
 var fs = require('fs')
 var path = require('path')
 
