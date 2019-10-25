@@ -14,8 +14,8 @@ const encoded = 'SrJGjLDmibBmICt9oTT_idV1qwLx0G00'
 describe('plantuml-encoder', function () {
   describe('#encode()', function () {
     it('node.js should encode UTF-8', function () {
-      const e = plantumlEncoder.encode(uml)
-      expect(e).to.equal(encoded)
+      const encoded = plantumlEncoder.encode(uml)
+      expect(encoded).to.equal(encoded)
     })
     it('browser should encode UTF-8', function () {
       expect(browserEncoder.encode(uml)).to.equal(plantumlEncoder.encode(uml))
