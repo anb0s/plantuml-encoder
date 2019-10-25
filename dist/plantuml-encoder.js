@@ -76,24 +76,11 @@ var encode64 = require('./encode64')
 var fs = require('fs')
 var path = require('path')
 
-// This function replaces fs.existsSync which
-// causes problems in browser environments
-// Adapted from
-// https://www.gregjs.com/javascript/2016/checking-whether-a-file-directory-exists-without-using-fs-exists/
-function fsExistsSync (filePath) {
-  try {
-    fs.accessSync(filePath)
-    return true
-  } catch (e) {
-    return false
-  }
-}
-
 // Reads the contents of the file passed as parameter.
 // If the file does not exist, just return an empty string.
 function readFile (filename) {
   var filePath = path.join(__dirname, filename)
-  if (!fsExistsSync(filePath)) {
+  if (!fs.existsSync(filePath)) {
     return ''
   }
   return fs.readFileSync(filePath).toString()
