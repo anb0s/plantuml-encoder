@@ -1,0 +1,6 @@
+hide empty members
+skinparam backgroundColor white
+skinparam monochrome true
+skinparam shadowing false
+skinparam linetype polyline
+skinparam linetype ortho
